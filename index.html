@@ -77,13 +77,11 @@
   .hero-video-wrap{
     position:absolute; inset:0; overflow:hidden; z-index:0; pointer-events:none;
   }
-  .hero-video-wrap iframe{
-    position:absolute; top:50%; left:50%;
-    width:177.78vh; height:56.25vw;
-    min-width:100%; min-height:100%;
-    transform:translate(-50%,-50%);
+  .hero-video-wrap video{
+    position:absolute; inset:0;
+    width:100%; height:100%; object-fit:cover;
     filter:grayscale(20%) brightness(0.5);
-    pointer-events:none; border:0;
+    pointer-events:none;
   }
   .hero::after{
     content:''; position:absolute; inset:0;
@@ -358,7 +356,7 @@
 </div>
 
 <section id="top" class="hero">
-  <div class="hero-video-wrap"><div id="heroPlayer"></div></div>
+  <div class="hero-video-wrap"><video id="heroReel" muted autoplay playsinline></video></div>
   <div class="scroll-cue"><div class="bar"></div>SCROLL</div>
 </section>
 
@@ -556,28 +554,23 @@
   modal.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
 </script>
 
-<script src="https://www.youtube.com/iframe_api"></script>
 <script>
-  // hero background video — plays from 00:52, loops back to 00:52 (not the start)
-  const HERO_START = 52;
-  let heroPlayer;
-  function onYouTubeIframeAPIReady(){
-    heroPlayer = new YT.Player('heroPlayer', {
-      videoId: 'kSY-uHGkXzM',
-      playerVars:{
-        autoplay:1, mute:1, controls:0, start:HERO_START,
-        modestbranding:1, rel:0, iv_load_policy:3, playsinline:1,
-        disablekb:1, fs:0
-      },
-      events:{
-        onReady: (e) => { e.target.mute(); e.target.playVideo(); },
-        onStateChange: (e) => {
-          if(e.data === YT.PlayerState.ENDED){
-            heroPlayer.seekTo(HERO_START, true);
-            heroPlayer.playVideo();
-          }
-        }
-      }
+  // hero background reel — plays 5 clips back-to-back, looping the sequence
+  const heroClips = [
+    "hero/hero-1.mp4",
+    "hero/hero-2.mp4",
+    "hero/hero-3.mp4",
+    "hero/hero-4.mp4",
+    "hero/hero-5.mp4"
+  ];
+  let heroIdx = 0;
+  const heroReel = document.getElementById('heroReel');
+  if(heroReel){
+    heroReel.src = heroClips[0];
+    heroReel.addEventListener('ended', () => {
+      heroIdx = (heroIdx + 1) % heroClips.length;
+      heroReel.src = heroClips[heroIdx];
+      heroReel.play();
     });
   }
 </script>
