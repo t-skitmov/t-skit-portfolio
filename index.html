@@ -108,6 +108,11 @@
     font-family:var(--body); font-weight:300; font-size:18px;
     color:var(--muted); margin-top:18px; max-width:480px;
   }
+  .hero-label{
+    position:absolute; bottom:64px; left:32px; z-index:2;
+    font-family:var(--mono); font-size:11px; color:var(--muted);
+    letter-spacing:0.18em;
+  }
   .scroll-cue{
     position:absolute; bottom:28px; left:32px; z-index:2;
     font-family:var(--mono); font-size:10px; color:var(--muted);
@@ -324,6 +329,7 @@
     .menu-toggle{display:flex;}
     .mobile-menu{display:flex;}
     .works-grid{grid-template-columns:1fr;}
+    .hero{min-height:70vh; background:var(--bg);}
   }
   @media(min-width:761px) and (max-width:1100px){
     .works-grid{grid-template-columns:repeat(2, 1fr);}
@@ -357,6 +363,7 @@
 
 <section id="top" class="hero">
   <div class="hero-video-wrap"><video id="heroReel" muted autoplay playsinline></video></div>
+  <div class="hero-label">SHOWREEL</div>
   <div class="scroll-cue"><div class="bar"></div>SCROLL</div>
 </section>
 
