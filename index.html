@@ -193,6 +193,14 @@
     display:block;
   }
   .work-card:hover .work-thumb img{filter:grayscale(0%) brightness(0.85); transform:scale(1.04);}
+  .work-thumb.thumb-fallback .play-glyph{
+    opacity:1;
+  }
+  .insta-badge{
+    position:absolute; bottom:14px; right:16px; z-index:2;
+    font-family:var(--mono); font-size:10px; letter-spacing:0.06em; color:var(--fg);
+    background:rgba(14,14,16,0.55); padding:3px 8px;
+  }
   .work-thumb.thumb-fallback{
     background:linear-gradient(135deg, var(--bg-soft), #1c1c1e);
   }
@@ -469,38 +477,188 @@
 
   // WORKS — real data, newest first
   const works = [
-    {id:"qDZknrdg418", client:"McGuffin", role:"Direction / Edit"},
-    {id:"t6G8w736NG0", client:"McGuffin", role:"Direction"},
-    {id:"8h2_cZz0EBA", client:"McGuffin", role:"Direction"},
-    {id:"VmcelxT5KMA", client:"60%", role:"Direction / Camera / Edit"},
-    {id:"EWPD5_QEDLc", client:"McGuffin", role:"Direction"},
-    {id:"GHt7iW8dlqE", client:"McGuffin", role:"Direction / Camera"},
-    {id:"VFzIWwEtApA", client:"McGuffin", role:"Direction"},
-    {id:"IIMhWGpHH3M", client:"McGuffin", role:"Direction"},
-    {id:"AllWJGca0fQ", client:"McGuffin", role:"Camera"},
-    {id:"xFaxr_-NJBw", client:"McGuffin", role:"Direction"},
-    {id:"Xqse72vh-co", client:"McGuffin", role:"Direction / Camera"},
-    {id:"RNlK2_SK2dA", client:"McGuffin", role:"Direction"},
-    {id:"w0FRDFsryBU", client:"McGuffin", role:"Direction / Camera / Edit"},
-    {id:"3ooh0Al5B6c", client:"McGuffin", role:"Direction"},
-    {id:"-LwnXl5pn64", client:"McGuffin", role:"Direction"},
-    {id:"6rvOAz7UfhI", client:"McGuffin", role:"Direction"},
-    {id:"OiLO0BMUx5s", client:"McGuffin", role:"Direction"},
-    {id:"dkB0eNlgAkk", client:"McGuffin", role:"Direction"},
-    {id:"90N24ywwfJ8", client:"McGuffin", role:"Direction"},
-    {id:"es8jcjImYgk", client:"McGuffin", role:"Direction / Camera / Edit"},
-    {id:"OqkC6XZhMy8", client:"McGuffin", role:"Direction / Camera / Edit"},
-    {id:"kSY-uHGkXzM", client:"McGuffin", role:"Direction / Camera / Edit"},
-    {id:"c6y7Ggs3SRw", client:"McGuffin", role:"Direction"},
-    {id:"uUVyxKnQJX0", client:"McGuffin", role:"Direction / Edit"},
-    {id:"AaNaOsYLPS0", client:"McGuffin", role:"Direction"},
-    {id:"-aBybXZc6nQ", client:"McGuffin", role:"Direction"},
-    {id:"0sODqLsm61M", client:"McGuffin", role:"Direction"},
-    {id:"yLQV4G5WXMM", client:"McGuffin", role:"Direction"},
-    {id:"eov2mOpd0As", client:"McGuffin", role:"Direction"},
-    {id:"sdRBw_xNTdA", client:"McGuffin", role:"Direction"},
-    {id:"xpXR_3HrQrg", client:"McGuffin", role:"Direction / Camera / Edit"},
-    {id:"Rog74Xfl3k8", client:"McGuffin", role:"Direction"}
+    {type:"youtube", id:"qDZknrdg418", client:"McGuffin", role:"Direction / Edit"},
+    {type:"youtube", id:"t6G8w736NG0", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"8h2_cZz0EBA", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"VmcelxT5KMA", client:"60%", role:"Direction / Videography / Edit"},
+    {type:"youtube", id:"EWPD5_QEDLc", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"GHt7iW8dlqE", client:"McGuffin", role:"Direction / Videography"},
+    {type:"youtube", id:"VFzIWwEtApA", client:"McGuffin", role:"Direction / Videography"},
+    {type:"youtube", id:"hnoyhWRNlSQ", client:"skew", role:"Direction / Edit"},
+    {type:"youtube", id:"IIMhWGpHH3M", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"AllWJGca0fQ", client:"McGuffin", role:"Videography"},
+    {type:"youtube", id:"Nq692ty9XQg", client:"skew", role:"Direction / Edit"},
+    {type:"youtube", id:"xFaxr_-NJBw", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"uKaFsI6E0mI", client:"60%", role:"Direction / Videography / Edit"},
+    {type:"youtube", id:"Xqse72vh-co", client:"McGuffin", role:"Direction / Videography"},
+    {type:"youtube", id:"fYJzBNNVU2w", client:"60%", role:"Direction / Videography / Edit"},
+    {type:"youtube", id:"T2iPi_IUi3A", client:"60%", role:"Direction / Videography / Edit"},
+    {type:"youtube", id:"9RmoOjbaAwE", client:"60%", role:"Direction / Videography / Edit"},
+    {type:"youtube", id:"svttneVtrRM", client:"60%", role:"Direction / Videography / Edit"},
+    {type:"youtube", id:"z6CwEx7Tilk", client:"skew", role:"Direction"},
+    {type:"youtube", id:"tbyy4-gvhiY", client:"60%", role:"Direction / Videography / Edit"},
+    {type:"youtube", id:"fTZUFJm9Ij0", client:"60%", role:"Direction / Videography / Edit"},
+    {type:"youtube", id:"RNlK2_SK2dA", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"AorjjG6agSU", client:"skew", role:"Direction / Edit"},
+    {type:"youtube", id:"RJib0qD8DAY", client:"60%", role:"Direction / Videography / Edit"},
+    {type:"youtube", id:"w0FRDFsryBU", client:"McGuffin", role:"Direction / Videography / Edit"},
+    {type:"youtube", id:"oFtX0X4ZfBg", client:"60%", role:"Direction / Videography / Edit"},
+    {type:"youtube", id:"3ooh0Al5B6c", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"-LwnXl5pn64", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"Sh_0uvlDe1w", client:"60%", role:"Direction / Videography / Edit"},
+    {type:"youtube", id:"sZKkOjCHnDA", client:"60%", role:"Direction / Videography / Edit"},
+    {type:"youtube", id:"010TdFgNrEw", client:"60%", role:"Direction / Videography / Edit"},
+    {type:"youtube", id:"KN94kPvlDg8", client:"60%", role:"Direction / Videography / Edit"},
+    {type:"youtube", id:"MSsG_fUWhWU", client:"60%", role:"Direction / Videography / Edit"},
+    {type:"youtube", id:"50DoSalg0gU", client:"60%", role:"Direction / Videography / Edit"},
+    {type:"youtube", id:"sMAiNLieJc4", client:"60%", role:"Direction / Videography / Edit"},
+    {type:"youtube", id:"6rvOAz7UfhI", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"4i-8V_bSdBQ", client:"60%", role:"Direction / Videography / Edit"},
+    {type:"youtube", id:"M2p9HHirLIE", client:"60%", role:"Direction / Videography / Edit"},
+    {type:"youtube", id:"jch7f0lHlDU", client:"60%", role:"Direction / Videography / Edit"},
+    {type:"youtube", id:"OiLO0BMUx5s", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"q9ObdpWLlYg", client:"60%", role:"Direction / Videography / Edit"},
+    {type:"youtube", id:"dkB0eNlgAkk", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"KWrhQc1ixJ8", client:"60%", role:"Direction / Videography / Edit"},
+    {type:"youtube", id:"90N24ywwfJ8", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"6Y-DEfHctmg", client:"60%", role:"Direction / Videography / Edit"},
+    {type:"youtube", id:"es8jcjImYgk", client:"McGuffin", role:"Direction / Videography / Edit"},
+    {type:"youtube", id:"OqkC6XZhMy8", client:"McGuffin", role:"Direction / Videography / Edit"},
+    {type:"youtube", id:"kSY-uHGkXzM", client:"McGuffin", role:"Direction / Videography / Edit"},
+    {type:"youtube", id:"AfIeP4Y5dHg", client:"skew", role:"Direction"},
+    {type:"youtube", id:"c6y7Ggs3SRw", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"uUVyxKnQJX0", client:"McGuffin", role:"Direction / Edit"},
+    {type:"youtube", id:"AaNaOsYLPS0", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"-aBybXZc6nQ", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"0sODqLsm61M", client:"McGuffin", role:"Direction"},
+    {type:"instagram", url:"https://www.instagram.com/reel/DYwiCRNPinM/", client:"skew", role:"Direction / Videography / Edit", thumb:"thumbs/insta-DYwiCRNPinM.jpg"},
+    {type:"instagram", url:"https://www.instagram.com/reel/DYwibjiPuc3/", client:"skew", role:"Direction / Videography / Edit", thumb:"thumbs/insta-DYwibjiPuc3.jpg"},
+    {type:"youtube", id:"yLQV4G5WXMM", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"eov2mOpd0As", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"sdRBw_xNTdA", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"xpXR_3HrQrg", client:"McGuffin", role:"Direction / Videography / Edit"},
+    {type:"youtube", id:"Rog74Xfl3k8", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"9mdhY09lv_0", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"--XfxgbLddk", client:"McGuffin", role:"Direction"},
+    {type:"instagram", url:"https://www.instagram.com/reel/DF49ylkzFl2/", client:"skew", role:"Direction / Videography / Edit", thumb:"thumbs/insta-DF49ylkzFl2.jpg"},
+    {type:"youtube", id:"K-IeB4c38A4", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"9AzZCpQLxK8", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"bhNBv7Lx5Uw", client:"skew", role:"Direction"},
+    {type:"youtube", id:"id79fZAltsI", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"wx1I2UpZ2Ws", client:"McGuffin", role:"Direction / Edit"},
+    {type:"youtube", id:"obhDw7i5y_U", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"iSF6olEYN3s", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"MaKEEY_m-5g", client:"McGuffin", role:"Direction / Videography / Edit"},
+    {type:"instagram", url:"https://www.instagram.com/reel/DA7zkCaTXfU/", client:"", role:"Direction / Videography / Edit", thumb:"thumbs/insta-DA7zkCaTXfU.jpg"},
+    {type:"youtube", id:"LsrX6umZ4Aw", client:"McGuffin", role:"Direction"},
+    {type:"instagram", url:"https://www.instagram.com/reel/DAcvyDdBHPH/", client:"SUPPLIER", role:"Direction / Videography / Edit", thumb:"thumbs/insta-DAcvyDdBHPH.jpg"},
+    {type:"youtube", id:"-EshhmcIYf8", client:"McGuffin", role:"Direction"},
+    {type:"instagram", url:"https://www.instagram.com/reel/C_Mqs_lvBn_/", client:"FREAK'S STORE", role:"Direction / Videography / Edit", thumb:"thumbs/insta-C_Mqs_lvBn_.jpg"},
+    {type:"instagram", url:"https://www.instagram.com/reel/C-9VyR-P6wJ/", client:"FREAK'S STORE", role:"Direction / Videography / Edit", thumb:"thumbs/insta-C-9VyR-P6wJ.jpg"},
+    {type:"instagram", url:"https://www.instagram.com/reel/C-2IjwHPQq0/", client:"FREAK'S STORE", role:"Direction / Videography / Edit", thumb:"thumbs/insta-C-2IjwHPQq0.jpg"},
+    {type:"instagram", url:"https://www.instagram.com/reel/C-r93a2vlyP/", client:"FREAK'S STORE", role:"Direction / Videography / Edit", thumb:"thumbs/insta-C-r93a2vlyP.jpg"},
+    {type:"youtube", id:"CPezX8_SKrs", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"QeSyywfJFm0", client:"McGuffin", role:"Direction / Videography / Edit"},
+    {type:"youtube", id:"rqxftJEMgNA", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"C3QufDYATd0", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"xogZU7S-COg", client:"McGuffin", role:"Direction"},
+    {type:"instagram", url:"https://www.instagram.com/reel/C7_JgsMPgI7/", client:"SUPPLIER", role:"Direction / Videography / Edit", thumb:"thumbs/insta-C7_JgsMPgI7.jpg"},
+    {type:"youtube", id:"rNYHYDAtIIs", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"WpGam38LmiE", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"gceKLmq70Ew", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"yyYouXdARWg", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"p7zgDtPYcIY", client:"McGuffin", role:"Direction / Edit"},
+    {type:"youtube", id:"cqDuxkM_NtU", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"eaHDLDxpr7s", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"t1ZZ_KU7rdY", client:"McGuffin", role:"Direction / Edit"},
+    {type:"youtube", id:"moYAPee97Pk", client:"McGuffin", role:"Direction / Edit"},
+    {type:"youtube", id:"s5GrwNqm5ZM", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"N9l5BKIHMkw", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"0F4SDOvt3g8", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"sFt3CrbwNJw", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"k6rx3NuV1Ak", client:"McGuffin", role:"Direction / Edit"},
+    {type:"youtube", id:"athsw1omzc4", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"Tk8ObNjvE6I", client:"McGuffin", role:"Direction / Edit"},
+    {type:"youtube", id:"Li-uCYv7Ip4", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"5eaLl7XMegk", client:"McGuffin", role:"Direction / Edit"},
+    {type:"youtube", id:"s0P4pIWWVYI", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"hibYg147wF0", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"Z-nZCmaSdQQ", client:"McGuffin", role:"Direction / Edit"},
+    {type:"youtube", id:"1ijHMXZoVwI", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"8n96d9AN8zM", client:"McGuffin", role:"Direction / Edit"},
+    {type:"youtube", id:"dX69Qn7iU7g", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"azOHmfwGghg", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"XeAyfc6zDKc", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"4MaB6lg4SwA", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"JOq7SoTO9bI", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"k7PNxPeGH2c", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"sY8n8ACW11c", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"qUhEtjvJ-go", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"MMqKvkqpZYQ", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"pz95yy7HO9g", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"-Hzv6NaXMkc", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"nEjc1P4_LlQ", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"JXxxSkq1bQI", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"AT_Fv-C9R44", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"68M1P_tHRvs", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"WOl2P67I7HY", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"iKZASfKWLK8", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"-Y5N0SEM8wM", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"OqFWVWRZEag", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"Ec3_Y4MbtOo", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"tG5Xuz31a0E", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"vXhg0AcLeuI", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"i3kXLgif6Pg", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"Z6enGIdXIcg", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"ghWeLLExAlg", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"Vp85S2KZjCY", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"5VyOBmNh0Io", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"boFA5o69DFQ", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"m9AMy4EdEgc", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"1rhTE-siMU8", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"BvfnhWPtwCc", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"6-oHW1bYRDI", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"s1qNt-BkikA", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"l_07oZ6Gp50", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"wirR7WxsBZ4", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"oA8QZmLds04", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"69FasMlL3NU", client:"McGuffin", role:"Direction"},
+    {type:"playlist", listId:"PL9q-GAZNGwP5gGC1Gl2k6WKvRao4Rt1B0", client:"McGuffin", role:"Direction", thumb:"thumbs/playlist-snap.jpg"},
+    {type:"youtube", id:"Tdx1NhlcXAI", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"GZ5ysReZ_RQ", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"9_pqGlREjo4", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"jACQl0LrJgs", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"6SRvhrFV40w", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"55kiALeJJZQ", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"xx25zWqypHY", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"sWmoH_nWl-M", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"WNdrfoNdvYY", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"NtdOsNA_mjs", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"LCoDOkiJZb8", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"51rPP5kyghY", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"xI58ccpVl9Y", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"VAuJWzGT2EE", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"Cb3jywWh13k", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"ENYGduLTbN8", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"H_sR4AzGEzs", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"X5Qa7vfghIc", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"8On7KLFTSxA", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"29cz2kcwjiY", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"Ur7joK5wBX0", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"PXvcaQ56x7g", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"z1KwdOvP5dc", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"Q53895_N6B0", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"svgPTTmTENQ", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"n4FUoV587QA", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"gRgBAFUz4ZQ", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"f5gNyoNP4yk", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"1RnpeepK3qw", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"wt0_T4TBYBI", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"uNi6Z_qiKAQ", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"J_CbquLDcV8", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"AVhYL5yNQOE", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"7yKgTJ18GwQ", client:"McGuffin", role:"Direction"},
+    {type:"youtube", id:"CT_oGvl3dJQ", client:"McGuffin", role:"Direction"},
   ];
 
   // CLIENT MARQUEE
@@ -536,21 +694,50 @@
   preview.forEach((w, i) => {
     const card = document.createElement('div');
     card.className = 'work-card';
-    card.innerHTML = `
-      <div class="work-thumb">
-        <img src="https://i.ytimg.com/vi/${w.id}/hqdefault.jpg" loading="lazy" alt="${w.client}" onerror="this.style.display='none'; this.closest('.work-thumb').classList.add('thumb-fallback');">
-        <div class="play-glyph"></div>
-      </div>
-      <div class="work-meta"><h3>${w.client}</h3><span>${w.role}</span></div>
-    `;
-    card.addEventListener('click', () => openModal(w.id));
+
+    const metaHtml = w.client
+      ? `<div class="work-meta"><h3>${w.client}</h3><span>${w.role}</span></div>`
+      : `<div class="work-meta"><h3>&nbsp;</h3><span>${w.role}</span></div>`;
+
+    if(w.type === 'instagram'){
+      card.innerHTML = `
+        <div class="work-thumb">
+          <img src="${w.thumb}" loading="lazy" alt="${w.client}" onerror="this.style.display='none'; this.closest('.work-thumb').classList.add('thumb-fallback');">
+          <div class="play-glyph"></div>
+          <span class="insta-badge">Instagram ↗</span>
+        </div>
+        ${metaHtml}
+      `;
+      card.addEventListener('click', () => window.open(w.url, '_blank', 'noopener'));
+    } else if(w.type === 'playlist'){
+      card.innerHTML = `
+        <div class="work-thumb">
+          <img src="${w.thumb}" loading="lazy" alt="${w.client}" onerror="this.style.display='none'; this.closest('.work-thumb').classList.add('thumb-fallback');">
+          <div class="play-glyph"></div>
+        </div>
+        ${metaHtml}
+      `;
+      card.addEventListener('click', () => openModal(null, w.listId));
+    } else {
+      card.innerHTML = `
+        <div class="work-thumb">
+          <img src="https://i.ytimg.com/vi/${w.id}/hqdefault.jpg" loading="lazy" alt="${w.client}" onerror="this.style.display='none'; this.closest('.work-thumb').classList.add('thumb-fallback');">
+          <div class="play-glyph"></div>
+        </div>
+        ${metaHtml}
+      `;
+      card.addEventListener('click', () => openModal(w.id));
+    }
     grid.appendChild(card);
   });
 
   const modal = document.getElementById('videoModal');
   const modalVideo = document.getElementById('modalVideo');
-  function openModal(id){
-    modalVideo.innerHTML = `<iframe src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+  function openModal(id, listId){
+    const src = listId
+      ? `https://www.youtube.com/embed/videoseries?list=${listId}&autoplay=1&rel=0`
+      : `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
+    modalVideo.innerHTML = `<iframe src="${src}" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
     modal.classList.add('open');
   }
   function closeModal(){
