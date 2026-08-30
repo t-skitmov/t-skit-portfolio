@@ -290,6 +290,13 @@
   button .arrow{color:var(--accent); transition:transform .25s ease;}
   button:hover{border-color:var(--accent);}
   button:hover .arrow{transform:translateX(4px);}
+  button:disabled{opacity:0.5; cursor:default;}
+  .contact-status{
+    font-family:var(--mono); font-size:12px; color:var(--muted);
+    margin-top:4px; min-height:1em;
+  }
+  .contact-status.success{color:var(--accent);}
+  .contact-status.error{color:#e0574a;}
 
   footer{
     position:fixed; bottom:0; left:0; width:100%; z-index:95;
@@ -417,11 +424,12 @@
       <p>企画から納品まで、または撮影のみ・編集のみなど、<br>部分的なご依頼も歓迎です。<br>メール、またはこちらのフォームからお気軽にご相談ください。</p>
       <a href="mailto:tsk1121@gmail.com" class="contact-email">tsk1121@gmail.com</a>
     </div>
-    <form onsubmit="event.preventDefault(); alert('デモ用フォームです。実装時は送信サービスと連携します。');">
-      <div class="field"><label>NAME</label><input type="text" required></div>
-      <div class="field"><label>EMAIL</label><input type="email" required></div>
-      <div class="field"><label>MESSAGE</label><textarea rows="4" required></textarea></div>
-      <button type="submit">SEND MESSAGE <span class="arrow">→</span></button>
+    <form id="contactForm" action="https://formspree.io/f/mgaevbyl" method="POST">
+      <div class="field"><label>NAME</label><input type="text" name="name" required></div>
+      <div class="field"><label>EMAIL</label><input type="email" name="email" required></div>
+      <div class="field"><label>MESSAGE</label><textarea name="message" rows="4" required></textarea></div>
+      <button type="submit" id="contactSubmit">SEND MESSAGE <span class="arrow">→</span></button>
+      <p id="contactStatus" class="contact-status"></p>
     </form>
   </div>
 </section>
@@ -449,6 +457,39 @@
     document.getElementById('playheadFill').style.width = (pct*100) + '%';
     document.getElementById('tcReadout').textContent = fmtTC(pct * 180);
   });
+
+  // contact form submission (Formspree)
+  const contactForm = document.getElementById('contactForm');
+  const contactStatus = document.getElementById('contactStatus');
+  const contactSubmit = document.getElementById('contactSubmit');
+  if(contactForm){
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      contactSubmit.disabled = true;
+      contactStatus.textContent = '送信中...';
+      contactStatus.className = 'contact-status';
+      try{
+        const res = await fetch(contactForm.action, {
+          method: 'POST',
+          body: new FormData(contactForm),
+          headers: { 'Accept': 'application/json' }
+        });
+        if(res.ok){
+          contactStatus.textContent = 'メッセージを送信しました。ありがとうございます。';
+          contactStatus.classList.add('success');
+          contactForm.reset();
+        } else {
+          contactStatus.textContent = '送信に失敗しました。時間をおいて再度お試しください。';
+          contactStatus.classList.add('error');
+        }
+      } catch(err){
+        contactStatus.textContent = '送信に失敗しました。時間をおいて再度お試しください。';
+        contactStatus.classList.add('error');
+      } finally {
+        contactSubmit.disabled = false;
+      }
+    });
+  }
 
   // mobile menu toggle
   const menuToggle = document.getElementById('menuToggle');
